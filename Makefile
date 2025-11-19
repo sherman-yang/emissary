@@ -94,6 +94,18 @@ $(call module,ambassador,$(OSS_HOME))
 include $(OSS_HOME)/build-aux/generate.mk
 include $(OSS_HOME)/build-aux/lint.mk
 
+.PHONY: print-envoy-image
+print-envoy-image:
+	@echo $(ENVOY_IMAGE)
+
+.PHONY: info
+info:
+	@echo "VERSION=$(VERSION)"
+	@echo "CHART_VERSION=$(CHART_VERSION)"
+	@echo "ENVOY_IMAGE=$(ENVOY_IMAGE)"
+	@echo "ARCH=$(ARCH)"
+	@echo "BUILD_ARCH=$(BUILD_ARCH)"
+
 .git/hooks/prepare-commit-msg:
 	ln -s $(OSS_HOME)/tools/hooks/prepare-commit-msg $(OSS_HOME)/.git/hooks/prepare-commit-msg
 
