@@ -152,6 +152,9 @@ def main():
         if "labels" not in metadata:
             metadata["labels"] = {}
 
+        # Force the app.kubernetes.io/part-of label.
+        metadata["labels"]["app.kubernetes.io/part-of"] = "emissary-ingress"
+
         if "helm.sh/chart" not in metadata["labels"]:
             metadata["labels"]["helm.sh/chart"] = "XXXLABEL-HELM-CHARTXXX"
 
