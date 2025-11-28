@@ -65,7 +65,8 @@ generate:
 # full value of $(generate/files) is based on the listing of files in $(OSS_HOME)/api/, we need to
 # make sure that those directories are fully populated before we evaluate the full $(generate/files).
 	$(MAKE) _generate
-_generate:
+
+_generate: helmify-crds
 	@echo '$(MAKE) $$(generate/files)'; $(MAKE) $(patsubst %/,%,$(generate/files))
 .PHONY: generate _generate
 
