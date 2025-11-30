@@ -10,10 +10,6 @@ go-mod-tidy/main: $(OSS_HOME)/build-aux/go-version.txt
 	GOFLAGS=-mod=mod go mod tidy -compat=$$(cut -d. -f1,2 < $<) -go=$$(cut -d. -f1,2 < $<)
 .PHONY: go-mod-tidy/main
 
-vendor: FORCE
-	go mod vendor
-clean: vendor.rm-r
-
 # Note that we use `uv pip list`, but `pip3 show` -- this is because `uv pip
 # show` doesn't include the license information, and we need that for our
 # reports. We also have to be very explicit about which Python interpreter
