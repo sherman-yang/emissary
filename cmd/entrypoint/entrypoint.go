@@ -91,6 +91,13 @@ func Main(ctx context.Context, Version string, args ...string) error {
 
 	dlog.Infof(ctx, "Started Ambassador (Version %s)", Version)
 
+	// Do whatever waiting for apiext that we need to do. This ensures
+	// that the CRD conversion webhook is available before we start
+	// processing resources, if we're using it.
+	if err := WaitForApiext(ctx); err != nil {
+		return fmt.Errorf("apiext readiness check failed: %w", err)
+	}
+
 	clusterID := GetClusterID(ctx)
 	os.Setenv("AMBASSADOR_CLUSTER_ID", clusterID)
 	dlog.Infof(ctx, "AMBASSADOR_CLUSTER_ID=%s", clusterID)

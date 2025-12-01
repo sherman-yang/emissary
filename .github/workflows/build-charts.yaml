@@ -52,6 +52,11 @@ jobs:
       - name: Build Charts
         shell: bash
         run: |
+          # When triggered by a tag, use the tag as VERSION instead of recalculating
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+            export VERSION="${{ github.ref_name }}"
+            echo "Using tag as VERSION: $VERSION"
+          fi
           make charts
 
       - name: Collect Chart Artifacts

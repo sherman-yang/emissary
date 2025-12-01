@@ -268,9 +268,13 @@ waitForApiext:
   enabled: false
   deploymentName: emissary-apiext
   deploymentNamespace: emissary-system
+  # Default createRoles to true to ensure that Emissary can watch the apiext
+  # Deployment.
+  createRoles: true
+  # Deprecated: this settings are no longer used, since we don't use an
+  # init container for this any more.
   securityContext:
     runAsUser: 8888
-  createRoles: false
 
 initContainers: []
 

@@ -65,7 +65,8 @@ generate:
 # full value of $(generate/files) is based on the listing of files in $(OSS_HOME)/api/, we need to
 # make sure that those directories are fully populated before we evaluate the full $(generate/files).
 	$(MAKE) _generate
-_generate:
+
+_generate: helmify-crds
 	@echo '$(MAKE) $$(generate/files)'; $(MAKE) $(patsubst %/,%,$(generate/files))
 .PHONY: generate _generate
 
@@ -194,7 +195,7 @@ APIEXT_BUILD_ARCH ?= linux/amd64,linux/arm64
 ## apiext-e2e-setup ensures crds are generated properly in the testdata directory then
 ## builds a standalone test image of the apiext binary for e2e testing
 .PHONY: apiext-e2e-setup
-apiext-e2e-setup: vendor $(OSS_HOME)/test/apiext/testdata/crds.yaml $(OSS_HOME)/test/apiext/testdata/rbac.yaml $(OSS_HOME)/test/apiext/testdata/deployment.yaml
+apiext-e2e-setup: $(OSS_HOME)/test/apiext/testdata/crds.yaml $(OSS_HOME)/test/apiext/testdata/rbac.yaml $(OSS_HOME)/test/apiext/testdata/deployment.yaml
 	docker buildx build \
 			-t localhost:10000/apiext:latest \
 			-f $(OSS_HOME)/docker/apiext/Dockerfile \
@@ -213,6 +214,7 @@ $(OSS_HOME)/DEPENDENCIES.md: $(OSS_HOME)/.venv $(OSS_HOME)/build-aux/pip-show.tx
 			--output-format=txt --package=mod --application-type=external --gotar=build-aux/go$$(cat $(OSS_HOME)/build-aux/go-version.txt).src.tar.gz; \
 		echo; \
 		{ sed 's/^---$$//' $(OSS_HOME)/build-aux/pip-show.txt; echo; } | $(tools/py-mkopensource); \
+		rm -rf vendor; \
 	} > $@
 
 $(OSS_HOME)/DEPENDENCY_LICENSES.md: $(OSS_HOME)/.venv $(OSS_HOME)/build-aux/pip-show.txt $(tools/go-mkopensource) $(tools/py-mkopensource) $(OSS_HOME)/build-aux/go-version.txt
@@ -224,6 +226,7 @@ $(OSS_HOME)/DEPENDENCY_LICENSES.md: $(OSS_HOME)/.venv $(OSS_HOME)/build-aux/pip-
 			--output-format=txt --package=mod --output-type=json --application-type=external \
 			--gotar=build-aux/go$$(cat $(OSS_HOME)/build-aux/go-version.txt).src.tar.gz | jq -r '.licenseInfo | to_entries | .[] | "* [" + .key + "](" + .value + ")"' ; \
 		{ sed 's/^---$$//' $(OSS_HOME)/build-aux/pip-show.txt; echo; } | $(tools/py-mkopensource) --output-type=json | jq -r '.licenseInfo | to_entries | .[] | "* [" + .key + "](" + .value + ")"'; \
+		rm -rf vendor; \
 	} | sort | uniq | sed -e 's/\[\([^]]*\)]()/\1/' >> $@
 
 #
