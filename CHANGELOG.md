@@ -64,6 +64,12 @@ from the Helm charts.
   been removed. This was a holdover from Ambassador Edge Stack (thanks to
   [Jeremy Dinsel] for the report!)
 
+- **BREAKING CHANGE**: The default `--banner-endpoint` argument has been
+  removed, since it was a holdover from Ambassador Edge Stack. If you
+  want to use the diagnostics-banner functionality, you can now set
+  `AMBASSADOR_DIAGD_BANNER_ENDPOINT` in the environment to the URL from
+  which to fetch the banner.
+
 ### Changes
 
 - Fix: Correctly distinguish Mappings that differ only by `weight`, even
@@ -91,6 +97,12 @@ from the Helm charts.
 - Fix: When trying to use environment variables to tell the conversion
   webhook not to manage aspects of its certificate, don't invert the
   meaning of the environment variables.
+
+- Fix: The diagnostics UI refers to Emissary (instead of Ambassador) and
+  links to emissary-ingress.dev's docs.
+
+- Fix: Emissary now uses the current `string_match` Envoy HeaderMatcher
+  stanza rather than the deprecated `exact_match` stanza.
 
 - Feature: Emissary now supports both `arm64` and `amd64` architectures
   using multiarch Docker images.
