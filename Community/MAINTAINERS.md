@@ -9,13 +9,13 @@ Maintainers are listed in alphabetical order.
 
 | Maintainer       | GitHub ID                                              | Affiliation                                         |
 | ---------------- | ------------------------------------------------------ | --------------------------------------------------- |
-| Alice Wasko      | [aliceproxy](https://github.com/aliceproxy)            | [Ambassador Labs](https://www.github.com/datawire/) |
+| Alice Wasko      | [aliceproxy](https://github.com/aliceproxy)            | [ngrok](https://ngrok.com/)                         |
 | David Dymko      | [ddymko](https://github.com/ddymko)                    | [CoreWeave](https://www.coreweave.com)              |
 | Flynn            | [kflynn](https://github.com/kflynn)                    | [Buoyant](https://www.buoyant.io)                   |
-| Hamzah Qudsi     | [haq204](https://github.com/haq204)                    | [Ambassador Labs](https://www.github.com/datawire/) |
-| Mark Schlachter  | [the-wondersmith](https://github.com/the-wondersmith)  | [Shuttle](https://www.shuttle.rs)                   |
+| Hamzah Qudsi     | [haq204](https://github.com/haq204)                    | [Antimetal](https://antimetal.com/)                 |
+| Mark Schlachter  | [the-wondersmith](https://github.com/the-wondersmith)  | Independent                                         |
 | Phil Peble       | [ppeble](https://github.com/ppeble)                    | [ActiveCampaign](https://www.activecampaign.com/)   |
-| Rafael Schloming | [rhs](https://github.com/rhs)                          | [Ambassador Labs](https://www.github.com/datawire/) |
+| Rafael Schloming | [rhs](https://github.com/rhs)                          |                                                     |
 
 
 In addition to the maintainers, Emissary releases may be created by any
@@ -23,7 +23,7 @@ of the following (also listed in alphabetical order):
 
 | Releaser     | GitHub ID                           | Affiliation                                         |
 | ------------ | ----------------------------------- | --------------------------------------------------- |
-| Will Hardin  | [w-h37](https://github.com/w-h37)   | [Ambassador Labs](https://www.github.com/datawire/) |
+| Will Hardin  | [w-h37](https://github.com/w-h37)   |                                                     |
 
 ## Maintainers Emeriti
 
