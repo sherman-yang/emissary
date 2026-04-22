@@ -8,6 +8,17 @@ as the Ambassador API Gateway.
 
 ## Emissary v4 Release Notes
 
+## [Not Yet Released]
+
+### Changes
+
+- Update: Upgrade from Envoy 1.36.2 to Envoy 1.37.2 ([1.37.0 release notes],
+  [1.37.1 release notes], [1.37.2 release notes]).
+
+[1.37.0 release notes]: https://www.envoyproxy.io/docs/envoy/latest/version_history/v1.37/v1.37.0
+[1.37.1 release notes]: https://www.envoyproxy.io/docs/envoy/latest/version_history/v1.37/v1.37.1
+[1.37.2 release notes]: https://www.envoyproxy.io/docs/envoy/latest/version_history/v1.37/v1.37.2
+
 ## [4.0.1] 26 March 2026
 [4.0.1]: https://github.com/emissary-ingress/emissary/compare/v3.10.0...v4.0.1
 
