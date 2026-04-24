@@ -118,9 +118,8 @@ jobs:
             --set image.tag="${VERSION}-${ARCH}" \
             --set image.pullPolicy=IfNotPresent \
             --set replicaCount=1 \
-            --set createDefaultListeners=true \
-            --wait --timeout 3m
-          kubectl -n emissary rollout status deploy/emissary-ingress --timeout=2m
+            --set createDefaultListeners=true
+          kubectl -n emissary rollout status deploy/emissary-ingress --timeout=3m
 
       - name: Install grpcurl
         env:

@@ -27,7 +27,7 @@ A few sentences describing what testing you've done, e.g., manual tests, automat
   - Any non-backward-compatible changes
   - Any deprecations
 
-- [ ] **This is unlikely to impact how Ambassador performs at scale.**
+- [ ] **This is unlikely to impact how Emissary Ingress performs at scale.**
 
    Remember, things that might have an impact at scale include:
   - Any significant changes in memory use that might require adjusting the memory limits
