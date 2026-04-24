@@ -10,20 +10,9 @@ Maintainers are listed in alphabetical order.
 | Maintainer       | GitHub ID                                              | Affiliation                                         |
 | ---------------- | ------------------------------------------------------ | --------------------------------------------------- |
 | Alice Wasko      | [aliceproxy](https://github.com/aliceproxy)            | [ngrok](https://ngrok.com/)                         |
-| David Dymko      | [ddymko](https://github.com/ddymko)                    | [CoreWeave](https://www.coreweave.com)              |
 | Flynn            | [kflynn](https://github.com/kflynn)                    | [Buoyant](https://www.buoyant.io)                   |
-| Hamzah Qudsi     | [haq204](https://github.com/haq204)                    | [Antimetal](https://antimetal.com/)                 |
 | Mark Schlachter  | [the-wondersmith](https://github.com/the-wondersmith)  | Independent                                         |
 | Phil Peble       | [ppeble](https://github.com/ppeble)                    | [ActiveCampaign](https://www.activecampaign.com/)   |
-| Rafael Schloming | [rhs](https://github.com/rhs)                          |                                                     |
-
-
-In addition to the maintainers, Emissary releases may be created by any
-of the following (also listed in alphabetical order):
-
-| Releaser     | GitHub ID                           | Affiliation                                         |
-| ------------ | ----------------------------------- | --------------------------------------------------- |
-| Will Hardin  | [w-h37](https://github.com/w-h37)   |                                                     |
 
 ## Maintainers Emeriti
 
@@ -33,7 +22,12 @@ of the following (also listed in alphabetical order):
 * Luke T. Shumaker ([lukeshu](https://github.com/lukeshu))
 * Alex Gervais ([alexgervais](https://github.com/alexgervais))
 * Lance Austin ([LanceEa](https://github.com/LanceEa))
+* David Dymko ([ddymko](https://github.com/ddymko))
+* Hamzah Qudsi ([haq204](https://github.com/haq204))
+* Rafael Schloming ([rhs](https://github.com/rhs))
 
 ## Releasers Emeriti
 
 * Noah Krause ([iNoahNothing](https://github.com/iNoahNothing))
+* Will Hardin ([w-h37](https://github.com/w-h37))
+
