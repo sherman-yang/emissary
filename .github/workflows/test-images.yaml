@@ -60,6 +60,7 @@ jobs:
             --api-port 6443 \
             --port "80:80@loadbalancer" \
             --port "443:443@loadbalancer" \
+            --port "6789:6789@loadbalancer" \
             --wait
 
           # Verify cluster is ready
@@ -112,6 +113,7 @@ jobs:
           helm install emissary-ingress \
             ${{ github.workspace }}/artifacts/charts/emissary-ingress-*.tgz \
             --namespace emissary \
+            -f ${{ github.workspace }}/test/e2e/helm-values.yaml \
             --set image.repository=ghcr.io/emissary-ingress/emissary \
             --set image.tag="${VERSION}-${ARCH}" \
             --set image.pullPolicy=IfNotPresent \

@@ -37,6 +37,7 @@ e2e/cluster-up: $(tools/k3d) $(tools/kubectl)
 	        --api-port 6443 \
 	        --port "80:80@loadbalancer" \
 	        --port "443:443@loadbalancer" \
+	        --port "6789:6789@loadbalancer" \
 	        --k3s-arg "--disable=traefik@server:*" \
 	        --wait; \
 	fi
@@ -69,6 +70,7 @@ e2e/install: $(CRDS_CHART) $(EMISSARY_CHART) e2e/load $(tools/kubectl)
 	@tag="$$(head -n1 $(E2E_VERSION_FILE))-$(ARCH)"; \
 	helm upgrade --install emissary-ingress $(EMISSARY_CHART) \
 	    --namespace $(E2E_NAMESPACE) --create-namespace \
+	    -f $(OSS_HOME)/test/e2e/helm-values.yaml \
 	    --set image.repository=ghcr.io/emissary-ingress/emissary \
 	    --set image.tag="$$tag" \
 	    --set image.pullPolicy=IfNotPresent \

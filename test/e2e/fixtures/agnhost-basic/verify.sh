@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-# Verifies that Emissary routes /backend/* to the agnhost service and that
-# agnhost's /echo handler sees our query string intact (i.e. the request made
-# the full round trip through Envoy, not just a generic 200 from somewhere).
 set -euo pipefail
 
 : "${GATEWAY_URL:?GATEWAY_URL must be set}"

@@ -14,10 +14,10 @@ directory, not editing any Go/Python test harness.
 ```
 test/e2e/
 ├── run.sh                      # fixture runner (iterates fixtures/, apply → verify → teardown)
-├── fixtures/
-│   └── agnhost-basic/          # one fixture per directory
-│       ├── manifests.yaml      # kubectl apply'd into $NAMESPACE before verify
-│       └── verify.sh           # exit 0 = pass, non-zero = fail
+└── fixtures/                   # one subdirectory per fixture
+    └── <fixture-name>/
+        ├── manifests.yaml      # kubectl apply'd into $NAMESPACE before verify
+        └── verify.sh           # exit 0 = pass, non-zero = fail
 ```
 
 The runner exports `GATEWAY_URL`, `NAMESPACE`, and `FIXTURE_DIR` into each
@@ -46,7 +46,8 @@ make e2e/local
 
 This runs, in order:
 1. `e2e/cluster-up` — create a k3d cluster named `emissary-e2e` with ports
-   80/443 mapped to the host loadbalancer and Traefik disabled.
+   80/443 (HTTP fixtures) and 6789 (TCPMapping fixtures) mapped to the host
+   loadbalancer and Traefik disabled.
 2. `make images` — build Emissary's container images via goreleaser snapshot.
 3. `e2e/install` — import images into k3d, then `helm install` the CRDs chart
    and the ingress chart pinned to the locally-built image tag.
@@ -74,6 +75,12 @@ make images && make VERSION=v4.0.0-local e2e/install
 > applies this override for you automatically; `make e2e/install` on its own
 > does not, so pass it explicitly (or set `E2E_LOCAL_VERSION` in the
 > environment). Use any short string — `v4.0.0-local` is just the default.
+
+> **Adding a new edge port?** k3d's published ports are fixed at cluster
+> creation time. If you add a port to `e2e/cluster-up` (or want the existing
+> 6789 on a cluster you created before it was added), you have to
+> `make e2e/cluster-down && make e2e/cluster-up` to pick it up — `helm
+> upgrade` alone won't get traffic in.
 
 ### Teardown
 
