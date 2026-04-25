@@ -122,26 +122,18 @@ jobs:
             --set createDefaultListeners=true
           kubectl -n emissary rollout status deploy/emissary-ingress --timeout=3m
 
-      - name: Install grpcurl
-        env:
-          GRPCURL_VERSION: 1.9.3
-          ARCH: ${{ matrix.arch }}
+      - name: Build kat-client
         run: |
           set -euo pipefail
-          case "${ARCH}" in
-            amd64) a=x86_64 ;;
-            arm64) a=arm64 ;;
-            *)     echo "unsupported arch: ${ARCH}" >&2; exit 1 ;;
-          esac
-          curl -sSL \
-            "https://github.com/fullstorydev/grpcurl/releases/download/v${GRPCURL_VERSION}/grpcurl_${GRPCURL_VERSION}_linux_${a}.tar.gz" \
-            | sudo tar -xz -C /usr/local/bin grpcurl
-          grpcurl --version
+          mkdir -p ${{ github.workspace }}/tools/bin
+          go build -o ${{ github.workspace }}/tools/bin/kat-client ./cmd/kat-client
 
       - name: Run E2E Fixtures
         env:
           NAMESPACE: emissary
           GATEWAY_URL: http://localhost
+          KAT_CLIENT: ${{ github.workspace }}/tools/bin/kat-client
+          KAT_SERVER_IMAGE: ghcr.io/emissary-ingress/kat-server:${{ inputs.version }}-${{ matrix.arch }}
         run: |
           bash ${{ github.workspace }}/test/e2e/run.sh
 

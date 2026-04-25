@@ -14,6 +14,13 @@ VERIFY_TIMEOUT="${VERIFY_TIMEOUT:-120}"
 
 export GATEWAY_URL NAMESPACE
 
+render_manifest() {
+    sed \
+        -e "s|\${KAT_SERVER_IMAGE}|${KAT_SERVER_IMAGE:-__KAT_SERVER_IMAGE_UNSET__}|g" \
+        -e "s|\${KAT_CLIENT_IMAGE}|${KAT_CLIENT_IMAGE:-__KAT_CLIENT_IMAGE_UNSET__}|g" \
+        "$1"
+}
+
 failed=()
 passed=()
 
@@ -29,7 +36,7 @@ for fixture_dir in "${FIXTURES_DIR}"/*/; do
 
     echo
     echo "=== fixture: ${name} ==="
-    kubectl apply -n "${NAMESPACE}" -f "${manifests}"
+    render_manifest "${manifests}" | kubectl apply -n "${NAMESPACE}" -f -
 
     export FIXTURE_DIR="${fixture_dir%/}"
     if timeout "${VERIFY_TIMEOUT}" bash "${verify}"; then
@@ -43,7 +50,7 @@ for fixture_dir in "${FIXTURES_DIR}"/*/; do
         kubectl -n "${NAMESPACE}" logs -l app.kubernetes.io/name=emissary-ingress --tail=200 2>&1 || true
     fi
 
-    kubectl delete -n "${NAMESPACE}" -f "${manifests}" --ignore-not-found --wait=false 2>&1 || true
+    render_manifest "${manifests}" | kubectl delete -n "${NAMESPACE}" -f - --ignore-not-found --wait=false 2>&1 || true
 done
 
 echo

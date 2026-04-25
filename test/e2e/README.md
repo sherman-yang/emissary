@@ -37,10 +37,13 @@ Everything is driven through `make` targets defined in `build-aux/e2e.mk`.
   ```
 - `k3d`, `kubectl`, and `helm` are fetched automatically into
   `tools/bin/` the first time they're needed.
-- `grpcurl` on your `PATH` if you want to run the `grpc-basic` fixture locally
-  (`brew install grpcurl` on macOS, or a release binary from
-  [fullstorydev/grpcurl](https://github.com/fullstorydev/grpcurl/releases)).
-  CI installs it automatically.
+- `jq` on your `PATH` (used by fixtures that assert on JSON probe output).
+  Preinstalled on GitHub runners; `brew install jq` on macOS.
+
+The `grpc-basic` fixture uses the in-tree `kat-client` as its probe and
+`kat-server` as its backend — `make e2e/run` builds `kat-client` as a host
+binary at `tools/bin/kat-client`, and `kat-server`'s image is the one
+produced by `make images`.
 
 ### Full cycle from scratch
 

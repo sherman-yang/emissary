@@ -70,8 +70,21 @@ e2e/install: $(CRDS_CHART) $(EMISSARY_CHART) e2e/load $(tools/kubectl)
 	    --wait --timeout 3m
 	$(tools/kubectl) -n $(E2E_NAMESPACE) rollout status deploy/emissary-ingress --timeout=2m
 
+tools/kat-client = $(OSS_HOME)/tools/bin/kat-client
+.PHONY: $(tools/kat-client)
+$(tools/kat-client):
+	@mkdir -p $(@D)
+	cd $(OSS_HOME) && go build -o $@ ./cmd/kat-client
+
 .PHONY: e2e/run
-e2e/run:
+e2e/run: $(tools/kat-client)
+	@if ! test -s $(E2E_VERSION_FILE); then \
+	    echo "error: $(E2E_VERSION_FILE) not found. Run 'make images' first." >&2; \
+	    exit 1; \
+	fi
+	@tag="$$(head -n1 $(E2E_VERSION_FILE))-$(ARCH)"; \
+	KAT_CLIENT=$(tools/kat-client) \
+	KAT_SERVER_IMAGE="ghcr.io/emissary-ingress/kat-server:$$tag" \
 	NAMESPACE=$(E2E_NAMESPACE) GATEWAY_URL=$(E2E_GATEWAY_URL) \
 	    bash $(OSS_HOME)/test/e2e/run.sh
 

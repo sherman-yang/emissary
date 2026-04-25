@@ -14,12 +14,16 @@ spec:
         app: tcp-echo
     spec:
       containers:
-        - name: agnhost
-          image: registry.k8s.io/e2e-test-images/agnhost:2.63.0
-          args: ["serve-hostname", "--http=false", "--tcp", "--port=9376"]
+        - name: kat-server
+          image: ${KAT_SERVER_IMAGE}
+          imagePullPolicy: IfNotPresent
+          command: ["/work/kat-server"]
+          env:
+            - name: BACKEND
+              value: tcp-echo
           ports:
-            - containerPort: 9376
-              name: tcp
+            - containerPort: 8080
+              name: http
               protocol: TCP
 ---
 apiVersion: v1
@@ -30,9 +34,9 @@ spec:
   selector:
     app: tcp-echo
   ports:
-    - name: tcp
-      port: 9376
-      targetPort: 9376
+    - name: http
+      port: 8080
+      targetPort: 8080
       protocol: TCP
 ---
 apiVersion: getambassador.io/v3alpha1
@@ -53,4 +57,4 @@ metadata:
   name: tcp-echo
 spec:
   port: 6789
-  service: tcp-echo:9376
+  service: tcp-echo:8080
