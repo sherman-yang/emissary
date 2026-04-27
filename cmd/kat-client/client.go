@@ -140,7 +140,8 @@ func (q Query) URL() string {
 
 // MinTLSVersion returns the minimun TLS protocol version.
 func (q Query) MinTLSVersion() uint16 {
-	switch q["minTLSv"].(string) {
+	val, _ := q["minTLSv"].(string)
+	switch val {
 	case "v1.0":
 		return tls.VersionTLS10
 	case "v1.1":
@@ -156,7 +157,8 @@ func (q Query) MinTLSVersion() uint16 {
 
 // MaxTLSVersion returns the maximum TLS protocol version.
 func (q Query) MaxTLSVersion() uint16 {
-	switch q["maxTLSv"].(string) {
+	val, _ := q["maxTLSv"].(string)
+	switch val {
 	case "v1.0":
 		return tls.VersionTLS10
 	case "v1.1":
